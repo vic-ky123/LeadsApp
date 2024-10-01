@@ -6,8 +6,6 @@ const CreateLeads = (props) => {
 
     const { modalOpen, onClose } = props;
 
-    // To test
-
     return (
         <>
             <Modal
