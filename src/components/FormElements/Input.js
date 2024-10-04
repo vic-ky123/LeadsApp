@@ -1,11 +1,10 @@
 import React from "react";
-import { Image, StyleSheet, Text } from "react-native";
-import { TextInput, View } from "react-native";
+import { Image, StyleSheet, Text, TextInput, View } from "react-native";
 import normalize from "react-native-normalize";
 
 const Input = (props) => {
 
-    const { inputLabel, labelText, value, onChange, errMsg, isOptional, placeHolder, inputContainer, keyboardType, inputStyle, errorInputStyle, errMsgStyle } = props;
+    const { inputLabel, labelText, value, onChange, errMsg, isOptional, placeHolder, multiline, inputContainer, keyboardType, inputStyle, errorInputStyle, errMsgStyle } = props;
 
     let dynamicInputStyle;
 
@@ -28,6 +27,7 @@ const Input = (props) => {
                     placeholder={placeHolder}
                     keyboardType={keyboardType}
                     style={dynamicInputStyle}
+                    multiline={multiline}
                 />
                 {errMsg ?
                     <View style={styles.errorContainer}>
@@ -49,6 +49,7 @@ const Input = (props) => {
 
 const styles = StyleSheet.create({
     inputContainer: {
+        flex: 1,
         flexDirection: "column",
         width: "100%",
         marginBottom: normalize(20)
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     optionalText: {
         marginLeft: normalize(5),
         marginBottom: normalize(5),
-        color: "#BBBBBB",
+        color: "#A4A4A4",
         fontWeight: "500",
         fontSize: normalize(13)
     },

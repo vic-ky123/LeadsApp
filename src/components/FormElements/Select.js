@@ -5,7 +5,7 @@ import SelectDropdown from "react-native-select-dropdown";
 
 const Select = (props) => {
 
-    const { inputLabel, options, labelText, value, isOptional, onSelect, errMsg, placeHolder, inputContainer, keyboardType, selectStyle, errorSelectStyle, errMsgStyle } = props;
+    const { inputLabel, options, labelText, isOptional, onSelect, errMsg, placeHolder, inputContainer, selectStyle, errorSelectStyle, errMsgStyle } = props;
 
     let dynamicSelectStyle;
 
@@ -15,6 +15,9 @@ const Select = (props) => {
         dynamicSelectStyle = [styles.selectStyle, selectStyle]
     }
 
+    const getSelected = (item) => {
+        onSelect(item.title);
+    };
 
     return (
         <>
@@ -25,7 +28,8 @@ const Select = (props) => {
                 </View>
                 <SelectDropdown
                     data={options}
-                    onSelect={(selectedItem, index) => onSelect(selectedItem, index)}
+                    onSelect={(selectedItem) => getSelected(selectedItem)}
+                    // onSelect={(selectedItem, index) => onSelect(selectedItem, index)}
                     renderButton={(selectedItem, isOpened) => {
                         return (
                             <View style={dynamicSelectStyle}>
@@ -96,7 +100,7 @@ const styles = StyleSheet.create({
     optionalText: {
         marginLeft: normalize(5),
         marginBottom: normalize(5),
-        color: "#BBBBBB",
+        color: "#A4A4A4",
         fontWeight: "500",
         fontSize: normalize(13)
     },
@@ -158,7 +162,7 @@ const styles = StyleSheet.create({
     },
     dropdownItemTxtStyle: {
         flex: 1,
-        fontSize: normalize(17),
+        fontSize: normalize(15),
         color: '#151E26',
         paddingVertical: normalize(10),
         borderBottomWidth: normalize(3),

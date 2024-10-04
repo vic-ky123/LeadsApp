@@ -1,13 +1,13 @@
-import moment from "moment";
 import React, { useState } from "react";
 import { Image, Modal, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import normalize from "react-native-normalize";
 import DateTimePicker from "react-native-ui-datepicker";
 import dayjs from 'dayjs';
+import moment from "moment";
 
 const DatePicker = (props) => {
 
-    const { inputLabel, openDateModal, openPicker, isOptional, closeDateModal, labelText, value, onSelect, errMsg, placeHolder, inputContainer, keyboardType, selectStyle, errorSelectStyle, errMsgStyle } = props;
+    const { inputLabel, openDateModal, openPicker, isOptional, closeDateModal, labelText, minDate, maxDate, onSelect, errMsg, placeHolder, inputContainer, selectStyle, errorSelectStyle, errMsgStyle } = props;
 
     const [date, setDate] = useState(dayjs());
     const [selectedDate, setSelectedDate] = useState("");
@@ -83,8 +83,8 @@ const DatePicker = (props) => {
                                 todayContainerStyle={{ borderRadius: normalize(8) }}
                                 selectedItemColor={"#2c67f2"}
                                 dayContainerStyle={{ borderRadius: normalize(8) }}
-                            // minDate={dayjs().min(dayjs())}
-                            // maxDate={dayjs().add(1, 'year').toDate()}
+                                minDate={minDate}
+                                maxDate={maxDate}
                             />
                         </View>
                     </View>
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     optionalText: {
         marginLeft: normalize(5),
         marginBottom: normalize(5),
-        color: "#BBBBBB",
+        color: "#A4A4A4",
         fontWeight: "500",
         fontSize: normalize(13)
     },
