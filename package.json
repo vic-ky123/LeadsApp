@@ -23,6 +23,7 @@
     "react-native-screens": "^3.34.0",
     "react-native-select-dropdown": "^4.0.1",
     "react-native-svg": "^12.1.1",
+    "react-native-swipe-list-view": "^3.2.9",
     "react-native-ui-datepicker": "^2.0.4",
     "underscore": "^1.13.7"
   },

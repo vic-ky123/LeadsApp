@@ -1,25 +1,16 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import TabNavigator from './src/routes/Postlogin/TabNavigator';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-const Stack = createNativeStackNavigator();
+import Bridge from './src/routes/Bridge';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const App = () => {
 
   return (
     <>
-      {/* <NavigationContainer>
-        <TabNavigator />
-      </NavigationContainer> */}
-
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={TabNavigator} options={{ headerShown: false }} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      {/* <GestureHandlerRootView> */}
+      <Bridge />
+      {/* </GestureHandlerRootView> */}
     </>
-  );
+  )
 };
 
 export default App;
