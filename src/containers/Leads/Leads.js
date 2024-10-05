@@ -1,12 +1,15 @@
-import React, { Fragment } from "react";
-import { FlatList, Image, Pressable, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import React from "react";
+import { Image, Pressable, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import normalize from "react-native-normalize";
 import SearchInput from "../../components/FormElements/SearchInput";
 import leadsData from "../../components/LeadsData.json";
 import { SwipeListView } from "react-native-swipe-list-view";
-// import Swipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
+import { useNavigation } from "@react-navigation/native";
+import LottieView from "lottie-react-native";
 
 const Leads = () => {
+
+    const navigation = useNavigation();
 
     const onRefresh = () => {
         console.log("Clicked on Refresh");
@@ -16,105 +19,43 @@ const Leads = () => {
         console.log("Clicked on Filter");
     };
 
-    const handleEdit = (index, item) => {
+    const handleEdit = (item, index) => {
         console.log("Item from Edit ---> ", item);
         console.log("Index from Edit ---> ", index);
     };
 
     const handleDelete = (index) => {
-        leadsData.splice(index, 1);
+        console.log("Index from Delete ---> ", index);
     };
 
-    const onSwipe = (index, item) => {
-        return (
-            <>
-                <View style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: 'center',
-                    justifyContent: 'flex-end',
-                }}>
+    const getStatusInfo = (status, type) => {
+        if (type === "icon") {
+            switch (status) {
+                case "Approved": return require("../../assets/approvedFileIcon.png");
+                case "Rejected": return require("../../assets/rejectedFileIcon.png");
+                case "In Progress": return require("../../assets/inProgressIcon.png");
+                case "Created": return require("../../assets/createdFileIcon.png");
+            }
+        }
 
-                    <TouchableOpacity onPress={() => handleDelete(index)}>
-                        <View style={{
-                            width: normalize(90),
-                            height: normalize(90),
-                            backgroundColor: "#D22630",
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}>
-                            <Text>Delete</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => handleEdit(index, item)}>
-                        <View style={{
-                            width: normalize(90),
-                            height: normalize(90),
-                            backgroundColor: "#ECB527",
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            borderTopRightRadius: normalize(8),
-                            borderBottomRightRadius: normalize(8),
-                        }}>
-                            <Text>Edit</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-            </>
-        )
+        if (type === "textColor") {
+            switch (status) {
+                case "Approved": return "#5DB150";
+                case "Rejected": return "#EB5032";
+                case "In Progress": return "#FAC200";
+                case "Created": return "#34ADFD";
+            }
+        }
     };
 
-    const renderItem = (item, index) => {
-        return (
-            <Fragment key={index}>
-                {/* <Swipeable renderRightActions={() => onSwipe(item, index)} > */}
-                <TouchableWithoutFeedback onPress={() => { navigate.push("BeneficiaryDetails", { data: item, changes: (id, value) => { reflectChange(id, value) }, deleteObj: (id) => { deleteItem(id) } }) }}>
-                    <View style={{
-                        display: "flex",
-                        justifyContent: "flex-start",
-                        alignItems: "flex-start",
-                        flexDirection: "row",
-                        padding: normalize(17),
-                        height: normalize(90),
-                        width: "100%",
-                        backgroundColor: "#FFFFFF",
-                        borderRadius: normalize(10),
-                        marginBottom: normalize(13)
-                    }}>
-                        <Image
-                            source={item.userIcon}
-                            style={{
-                                width: normalize(40),
-                                height: normalize(40),
-                                marginRight: normalize(15),
-                                borderRadius: normalize(50)
-                            }}
-                        />
-                        <View>
-                            <Text style={{
-                                fontSize: normalize(15),
-                                color: "#666666",
-                                marginBottom: normalize(8)
-                            }}>{item.beneficiaryName}</Text>
-                            <Text style={{
-                                fontSize: normalize(13),
-                                color: "#B3B3B3"
-                            }}>{item.beneficiaryAcctNum}</Text>
-                            <Text style={{
-                                fontSize: normalize(13),
-                                color: "#B3B3B3"
-                            }}>{item.transTypeLabel}</Text>
-                        </View>
-                    </View>
-                </TouchableWithoutFeedback>
-                {/* </Swipeable> */}
-            </Fragment>
-        )
-    }
+    const formatCurrency = (amount) => {
+        return new Intl.NumberFormat("en-IN", {
+            style: "currency",
+            currency: "INR",
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }).format(amount);
+    };
 
     return (
         <>
@@ -139,8 +80,16 @@ const Leads = () => {
                     </Pressable>
                 </View>
                 <View style={styles.dataContainer}>
-                    <View style={styles.leadsCountContainer}>
-                        <Text style={styles.leadsCount}>{`${leadsData.length} leads in total`}</Text>
+                    {/* <View style={styles.leadsCountContainer}>
+                        <View style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            flexDirection: "row"
+                        }}>
+                            <Text style={[styles.leadsCount, { fontWeight: "500", color: "#3F3844" }]}>{`${leadsData.length} Leads `}</Text>
+                            <Text style={styles.leadsCount}>in total.</Text>
+                        </View>
                         <Pressable onPress={() => onRefresh()}>
                             <View style={[styles.iconHolder, { marginRight: normalize(8) }]}>
                                 <Image
@@ -152,126 +101,213 @@ const Leads = () => {
                                 />
                             </View>
                         </Pressable>
-                    </View>
+                    </View> */}
                     <View style={{ marginTop: normalize(20) }}>
                         {
                             leadsData && leadsData.length > 0 ?
-                                <SwipeListView
-                                    contentContainerStyle={{ paddingBottom: normalize(205) }}
-                                    useFlatList={true}
-                                    showsVerticalScrollIndicator={false}
-                                    data={leadsData}
-                                    renderItem={({ item }) => (
-                                        <TouchableWithoutFeedback onPress={() => console.log("Touched on item...! ---> ", item)}>
+                                <>
+                                    <View style={styles.leadsCountContainer}>
+                                        <View style={{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            flexDirection: "row"
+                                        }}>
+                                            <Text style={[styles.leadsCount, { fontWeight: "500", color: "#3F3844" }]}>{`${leadsData.length} Leads `}</Text>
+                                            <Text style={styles.leadsCount}>in total.</Text>
+                                        </View>
+                                        <Pressable onPress={() => onRefresh()}>
+                                            <View style={[styles.iconHolder, { marginRight: normalize(8) }]}>
+                                                <Image
+                                                    source={require("../../assets/refreshIcon.png")}
+                                                    style={{
+                                                        height: normalize(21),
+                                                        width: normalize(21),
+                                                    }}
+                                                />
+                                            </View>
+                                        </Pressable>
+                                    </View>
+                                    <SwipeListView
+                                        contentContainerStyle={{ paddingBottom: normalize(205) }}
+                                        useFlatList={true}
+                                        showsVerticalScrollIndicator={false}
+                                        data={leadsData}
+                                        renderItem={({ item }) => (
+                                            <TouchableWithoutFeedback onPress={() => navigation.push("ViewLead", { data: item })}>
+                                                <View style={{
+                                                    display: "flex",
+                                                    justifyContent: "space-between",
+                                                    alignItems: "flex-start",
+                                                    flexDirection: "row",
+                                                    padding: normalize(17),
+                                                    height: normalize(100),
+                                                    width: "100%",
+                                                    backgroundColor: "#FFFFFF",
+                                                    borderRadius: normalize(10),
+                                                    marginBottom: normalize(13)
+                                                }}>
+                                                    <View style={{
+                                                        flex: 1,
+                                                        flexDirection: "column",
+                                                        justifyContent: "space-between",
+                                                        alignItems: "flex-start",
+                                                        height: "100%",
+                                                        marginRight: normalize(10)
+                                                    }}>
+                                                        <Text style={{
+                                                            fontSize: normalize(19),
+                                                            fontWeight: "600",
+                                                            color: "#2c67f2",
+                                                            marginBottom: normalize(10)
+                                                        }}>{item.name}</Text>
+                                                        <View>
+                                                            <Text style={{
+                                                                fontSize: normalize(15),
+                                                                color: "grey",
+                                                                marginBottom: normalize(5)
+                                                            }}>{item.loanType}</Text>
+                                                            <Text style={{
+                                                                fontSize: normalize(15),
+                                                                color: "#3F3844",
+                                                                fontWeight: "500"
+                                                            }}>{formatCurrency(item.loanAmount)}</Text>
+                                                        </View>
+                                                    </View>
+                                                    <View style={{
+                                                        flexDirection: "column",
+                                                        justifyContent: "space-between",
+                                                        alignItems: "flex-end",
+                                                        marginRight: normalize(-5),
+                                                        marginTop: normalize(-3)
+                                                    }}>
+                                                        <Image
+                                                            source={require("../../assets/dropDownArrow.png")}
+                                                            style={{
+                                                                width: normalize(23),
+                                                                height: normalize(23),
+                                                                marginTop: normalize(5),
+                                                                transform: [{ rotate: '270deg' }]
+                                                            }}
+                                                        />
+                                                        <View style={{
+                                                            flexDirection: "column",
+                                                            justifyContent: "flex-end",
+                                                            alignItems: "flex-end",
+                                                            marginTop: normalize(12),
+                                                            marginRight: normalize(5)
+                                                        }}>
+                                                            <Text style={{
+                                                                marginRight: normalize(5),
+                                                                fontSize: normalize(13),
+                                                                color: "#99A3A4"
+                                                            }}>{item.loanDate}</Text>
+                                                            <View style={{
+                                                                flexDirection: "row",
+                                                                justifyContent: "center",
+                                                                alignItems: "center",
+                                                                marginTop: normalize(8)
+                                                            }}>
+                                                                <Text style={{
+                                                                    fontSize: normalize(15),
+                                                                    fontWeight: "500",
+                                                                    color: getStatusInfo(item.loanStatus, "textColor")
+                                                                }}>{item.loanStatus}</Text>
+                                                                <Image
+                                                                    source={getStatusInfo(item.loanStatus, "icon")}
+                                                                    style={{
+                                                                        width: normalize(item.loanStatus === "Approved" || item.loanStatus === "Rejected" ? 20 : 23),
+                                                                        height: normalize(item.loanStatus === "Approved" || item.loanStatus === "Rejected" ? 20 : 23),
+                                                                        marginLeft: normalize(7)
+                                                                    }}
+                                                                />
+                                                            </View>
+                                                        </View>
+                                                    </View>
+                                                </View>
+                                            </TouchableWithoutFeedback>
+                                        )}
+                                        renderHiddenItem={({ item, index }) => (
                                             <View style={{
                                                 display: "flex",
-                                                justifyContent: "flex-start",
-                                                alignItems: "flex-start",
+                                                justifyContent: "flex-end",
+                                                alignItems: "center",
                                                 flexDirection: "row",
-                                                padding: normalize(17),
-                                                height: normalize(90),
+                                                height: normalize(100),
                                                 width: "100%",
-                                                backgroundColor: "#FFFFFF",
                                                 borderRadius: normalize(10),
                                                 marginBottom: normalize(13)
                                             }}>
-                                                {/* <Image
-                                                    source={item.userIcon}
-                                                    style={{
-                                                        width: normalize(40),
-                                                        height: normalize(40),
-                                                        marginRight: normalize(15),
-                                                        borderRadius: normalize(50)
-                                                    }}
-                                                /> */}
-                                                <View>
-                                                    <Text style={{
-                                                        fontSize: normalize(15),
-                                                        color: "#666666",
-                                                        marginBottom: normalize(8)
-                                                    }}>{item.name}</Text>
-                                                    <Text style={{
-                                                        fontSize: normalize(13),
-                                                        color: "#B3B3B3"
-                                                    }}>{item.beneficiaryAcctNum}</Text>
-                                                    <Text style={{
-                                                        fontSize: normalize(13),
-                                                        color: "#B3B3B3"
-                                                    }}>{item.transTypeLabel}</Text>
-                                                </View>
+                                                <TouchableOpacity onPress={() => handleEdit(item, index)}>
+                                                    <View style={{
+                                                        width: normalize(90),
+                                                        height: normalize(100),
+                                                        backgroundColor: "#ECB527",
+                                                        display: "flex",
+                                                        flexDirection: "row",
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center'
+                                                    }}>
+                                                        <Image
+                                                            source={require("../../assets/editRecordIcon.png")}
+                                                            style={{
+                                                                width: normalize(30),
+                                                                height: normalize(30),
+                                                                marginLeft: normalize(8)
+                                                            }}
+                                                        />
+                                                    </View>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity onPress={() => handleDelete(index)}>
+                                                    <View style={{
+                                                        width: normalize(80),
+                                                        height: normalize(100),
+                                                        backgroundColor: "#D22630",
+                                                        display: "flex",
+                                                        flexDirection: "row",
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                        borderTopRightRadius: normalize(10),
+                                                        borderBottomRightRadius: normalize(10)
+                                                    }}>
+                                                        <Image
+                                                            source={require("../../assets/trashBinIcon.png")}
+                                                            style={{
+                                                                width: normalize(30),
+                                                                height: normalize(30)
+                                                            }}
+                                                        />
+                                                    </View>
+                                                </TouchableOpacity>
                                             </View>
-                                        </TouchableWithoutFeedback>
-                                    )}
-                                    renderHiddenItem={({ item, index }) => (
-                                        <View style={{
-                                            display: "flex",
-                                            justifyContent: "flex-end",
-                                            alignItems: "center",
-                                            flexDirection: "row",
-                                            height: normalize(90),
-                                            width: "100%",
-                                            borderRadius: normalize(10),
-                                            marginBottom: normalize(13)
-                                        }}>
-                                            <TouchableOpacity onPress={() => console.log("Edit item ---> ", item.name)}>
-                                                <View style={{
-                                                    width: normalize(90),
-                                                    height: normalize(90),
-                                                    backgroundColor: "#ECB527",
-                                                    display: "flex",
-                                                    flexDirection: "row",
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center'
-                                                }}>
-                                                    <Image
-                                                        source={require("../../assets/editRecordIcon.png")}
-                                                        style={{
-                                                            width: normalize(30),
-                                                            height: normalize(30)
-                                                        }}
-                                                    />
-                                                </View>
-                                            </TouchableOpacity>
-                                            <TouchableOpacity onPress={() => index[item.id].closeRow()}>
-                                                <View style={{
-                                                    width: normalize(80),
-                                                    height: normalize(90),
-                                                    backgroundColor: "#D22630",
-                                                    display: "flex",
-                                                    flexDirection: "row",
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                    borderTopRightRadius: normalize(10),
-                                                    borderBottomRightRadius: normalize(10)
-                                                }}>
-                                                    <Image
-                                                        source={require("../../assets/trashBinIcon.png")}
-                                                        style={{
-                                                            width: normalize(30),
-                                                            height: normalize(30)
-                                                        }}
-                                                    />
-                                                </View>
-                                            </TouchableOpacity>
-                                        </View>
-                                    )}
-                                    rightOpenValue={-165}
-                                    onRowOpen={(rowKey, rowMap) => {
-                                        setTimeout(() => {
-                                            rowMap[rowKey].closeRow()
-                                        }, 2000)
-                                    }}
-                                />
+                                        )}
+                                        rightOpenValue={-165}
+                                        onRowOpen={(rowKey, rowMap) => {
+                                            setTimeout(() => {
+                                                rowMap[rowKey].closeRow()
+                                            }, 2000)
+                                        }}
+                                    />
+                                </>
                                 :
                                 <View style={{
-                                    flex: 1,
-                                    display: "flex",
                                     justifyContent: "center",
                                     alignItems: "center",
-                                    marginTop: normalize(30)
+                                    marginTop: normalize(20)
                                 }}>
+                                    <LottieView
+                                        source={require("../../assets/noDataFound.json")}
+                                        style={{
+                                            width: normalize(230),
+                                            height: normalize(230)
+                                        }}
+                                        progress={1}
+                                    />
                                     <Text style={{
-                                        color: "red"
+                                        color: "#3F3844",
+                                        fontSize: normalize(18),
+                                        fontWeight: "600",
+                                        marginTop: normalize(-20)
                                     }}>No Data Found</Text>
                                 </View>
                         }
@@ -315,8 +351,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#FFFFFF",
         borderWidth: normalize(3),
-        borderColor: "#BCBFC1",
-        elevation: normalize(7)
+        borderColor: "#BCBFC1"
     },
     dataContainer: {
         height: "100%",
@@ -333,12 +368,14 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         width: "100%",
-        paddingLeft: normalize(8)
+        paddingLeft: normalize(8),
+        // backgroundColor: "red",
+        marginTop: normalize(-20),
+        marginBottom: normalize(20)
     },
     leadsCount: {
         color: "#767E8C",
-        fontSize: normalize(16),
-        fontWeight: "500"
+        fontSize: normalize(16)
     }
 });
 

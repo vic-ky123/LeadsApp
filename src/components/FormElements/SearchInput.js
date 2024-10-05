@@ -42,8 +42,7 @@ const styles = StyleSheet.create({
         borderRadius: normalize(27),
         borderWidth: normalize(3),
         borderColor: "#BCBFC1",
-        backgroundColor: "#FFFFFF",
-        elevation: normalize(7)
+        backgroundColor: "#FFFFFF"
     },
     labelContainer: {
         flexDirection: "row",
