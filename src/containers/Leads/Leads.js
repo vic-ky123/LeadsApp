@@ -80,18 +80,18 @@ const Leads = () => {
                     </Pressable>
                 </View>
                 <View style={styles.dataContainer}>
-                    {/* <View style={styles.leadsCountContainer}>
-                        <View style={{
+                    <View style={[styles.leadsCountContainer, { justifyContent: leadsData && leadsData.length ? "space-between" : "flex-end" }]}>
+                        {leadsData && leadsData.length ? <View style={{
                             display: "flex",
                             justifyContent: "center",
-                            alignItems: "center",
+                            alignItems: "flex-end",
                             flexDirection: "row"
                         }}>
                             <Text style={[styles.leadsCount, { fontWeight: "500", color: "#3F3844" }]}>{`${leadsData.length} Leads `}</Text>
-                            <Text style={styles.leadsCount}>in total.</Text>
-                        </View>
+                            <Text style={[styles.leadsCount, { fontSize: normalize(14), paddingBottom: normalize(2), lineHeight: normalize(20) }]}>in total.</Text>
+                        </View> : null}
                         <Pressable onPress={() => onRefresh()}>
-                            <View style={[styles.iconHolder, { marginRight: normalize(8) }]}>
+                            <View style={[styles.iconHolder, { marginRight: normalize(8), alignSelf: "flex-end" }]}>
                                 <Image
                                     source={require("../../assets/refreshIcon.png")}
                                     style={{
@@ -101,33 +101,11 @@ const Leads = () => {
                                 />
                             </View>
                         </Pressable>
-                    </View> */}
-                    <View style={{ marginTop: normalize(20) }}>
+                    </View>
+                    <View style={{ marginTop: normalize(10) }}>
                         {
-                            leadsData && leadsData.length > 0 ?
+                            leadsData && leadsData.length ?
                                 <>
-                                    <View style={styles.leadsCountContainer}>
-                                        <View style={{
-                                            display: "flex",
-                                            justifyContent: "center",
-                                            alignItems: "center",
-                                            flexDirection: "row"
-                                        }}>
-                                            <Text style={[styles.leadsCount, { fontWeight: "500", color: "#3F3844" }]}>{`${leadsData.length} Leads `}</Text>
-                                            <Text style={styles.leadsCount}>in total.</Text>
-                                        </View>
-                                        <Pressable onPress={() => onRefresh()}>
-                                            <View style={[styles.iconHolder, { marginRight: normalize(8) }]}>
-                                                <Image
-                                                    source={require("../../assets/refreshIcon.png")}
-                                                    style={{
-                                                        height: normalize(21),
-                                                        width: normalize(21),
-                                                    }}
-                                                />
-                                            </View>
-                                        </Pressable>
-                                    </View>
                                     <SwipeListView
                                         contentContainerStyle={{ paddingBottom: normalize(205) }}
                                         useFlatList={true}
@@ -201,7 +179,7 @@ const Leads = () => {
                                                                 marginRight: normalize(5),
                                                                 fontSize: normalize(13),
                                                                 color: "#99A3A4"
-                                                            }}>{item.loanDate}</Text>
+                                                            }}>{item.loanCreatedDate}</Text>
                                                             <View style={{
                                                                 flexDirection: "row",
                                                                 justifyContent: "center",
@@ -329,7 +307,8 @@ const styles = StyleSheet.create({
         marginBottom: normalize(12),
         marginLeft: normalize(5),
         paddingHorizontal: normalize(20),
-        color: "#2c67f2",
+        color: "#3F3F3F",
+        // color: "#2c67f2",
         fontWeight: "700",
         fontSize: normalize(25),
         letterSpacing: normalize(3)
@@ -366,12 +345,9 @@ const styles = StyleSheet.create({
     leadsCountContainer: {
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "space-between",
         width: "100%",
         paddingLeft: normalize(8),
-        // backgroundColor: "red",
-        marginTop: normalize(-20),
-        marginBottom: normalize(20)
+        marginBottom: normalize(12)
     },
     leadsCount: {
         color: "#767E8C",

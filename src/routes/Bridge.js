@@ -1,17 +1,11 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import TabNavigator from './Postlogin/TabNavigator';
-import ViewLead from '../containers/ViewLead/ViewLead';
-import StackHeader from './StackHeader';
-
-const Stack = createNativeStackNavigator();
+import PostLoginNavigator from './Postlogin/PostLoginNavigator';
 
 const Bridge = () => {
 
     return (
         <>
-            <NavigationContainer>
+            {/* <NavigationContainer>
                 <Stack.Navigator>
                     <Stack.Screen
                         name="Home"
@@ -29,7 +23,9 @@ const Bridge = () => {
                         }}
                     />
                 </Stack.Navigator>
-            </NavigationContainer>
+            </NavigationContainer> */}
+
+            <PostLoginNavigator />
         </>
     )
 };

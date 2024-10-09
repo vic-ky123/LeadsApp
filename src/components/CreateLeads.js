@@ -5,7 +5,6 @@ import Input from "./FormElements/Input";
 import Select from "./FormElements/Select";
 import DatePicker from "./FormElements/DatePicker";
 import { PrimaryButton, SecondaryButton } from "./FormElements/ButtonCollection";
-import moment from "moment";
 import dayjs from "dayjs";
 
 const CreateLeads = (props) => {
