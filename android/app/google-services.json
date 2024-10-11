@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1006990994214",
+    "project_id": "leadsapp-10d29",
+    "storage_bucket": "leadsapp-10d29.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006990994214:android:f0306b5967f3c557a2afe7",
+        "android_client_info": {
+          "package_name": "com.demoapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkUZ2k8JsmL7A6T_27rer9-PwaHpc5V6I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

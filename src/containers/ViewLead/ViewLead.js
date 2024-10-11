@@ -156,7 +156,7 @@ const ViewLead = (props) => {
                             alignItems: "flex-end",
                             marginTop: normalize(10)
                         }}>
-                            <Text style={[styles.label, { paddingBottom: normalize(-1) }]}>State - </Text>
+                            <Text style={[styles.label, { paddingBottom: normalize(3), lineHeight: normalize(22) }]}>State - </Text>
                             <Text style={[styles.value, { paddingBottom: normalize(5) }]}>{data.state}</Text>
                         </View>
                     </View>

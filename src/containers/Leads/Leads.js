@@ -88,7 +88,7 @@ const Leads = () => {
                             flexDirection: "row"
                         }}>
                             <Text style={[styles.leadsCount, { fontWeight: "500", color: "#3F3844" }]}>{`${leadsData.length} Leads `}</Text>
-                            <Text style={[styles.leadsCount, { fontSize: normalize(14), paddingBottom: normalize(2), lineHeight: normalize(20) }]}>in total.</Text>
+                            <Text style={[styles.leadsCount, { fontSize: normalize(14), paddingBottom: normalize(2), lineHeight: normalize(20), paddingLeft: normalize(3) }]}>in total.</Text>
                         </View> : null}
                         <Pressable onPress={() => onRefresh()}>
                             <View style={[styles.iconHolder, { marginRight: normalize(8), alignSelf: "flex-end" }]}>
