@@ -1,12 +1,9 @@
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { ScrollView, StatusBar, StyleSheet, View } from "react-native";
+import { StatusBar, StyleSheet, View } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import normalize from "react-native-normalize";
 
 const CommonBG = ({ children }) => {
-
-    const navigation = useNavigation();
 
     return (
         <>

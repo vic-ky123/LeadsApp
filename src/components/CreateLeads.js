@@ -510,15 +510,19 @@ const CreateLeads = (props) => {
                         <Text style={styles.subTitleStyle}>Confirm Action</Text>
                         <Text style={styles.confirmDescription}>You are about to Create a New Lead. Are you sure to proceed?</Text>
                         <View style={styles.btnContainer}>
-                            <SecondaryButton
-                                label="Cancel"
-                                onPress={() => closeConfirmModal()}
-                            />
-                            <View style={{ width: normalize(15) }} />
-                            <PrimaryButton
-                                label="Create"
-                                onPress={() => onConfirmSubmit()}
-                            />
+                            <View style={{ flex: 1, marginHorizontal: normalize(5) }}>
+                                <SecondaryButton
+                                    label="Cancel"
+                                    onPress={() => closeConfirmModal()}
+                                />
+                            </View>
+                            {/* <View style={{ width: normalize(15) }} /> */}
+                            <View style={{ flex: 1, marginHorizontal: normalize(5) }}>
+                                <PrimaryButton
+                                    label="Create"
+                                    onPress={() => onConfirmSubmit()}
+                                />
+                            </View>
                         </View>
                         <Pressable onPress={() => setConfirmModal(false)}>
                             <View style={{
@@ -580,9 +584,22 @@ const styles = StyleSheet.create({
         fontSize: normalize(20)
     },
     btnContainer: {
-        flexDirection: "row",
-        width: "100%",
-        justifyContent: "center",
+        // flexDirection: "row",
+        // width: "100%",
+        // justifyContent: "center",
+        // marginTop: normalize(15),
+
+        // flexDirection: "row",
+        // width: "100%",
+        // alignSelf: "center",
+        // // justifyContent: "space-between",
+        // marginTop: normalize(15)
+
+        flexDirection: "row",       // Arrange buttons in a row
+        width: "100%",              // Full width of the parent container
+        alignSelf: "center",        // Center horizontally in the parent
+        justifyContent: "space-between",
+        alignItems: "center", // Ensure even spacing between buttons
         marginTop: normalize(15),
     },
     confirmModalParentContainer: {

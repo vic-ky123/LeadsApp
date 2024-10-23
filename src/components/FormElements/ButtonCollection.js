@@ -63,10 +63,10 @@ const primaryButton = (props) => {
                     end={{ x: 1.6, y: 0 }}
                     style={[
                         {
-                            flex: 1,
+                            // flex: 1,
                             width: "100%",
                             borderRadius: normalize(20),
-                            paddingVertical: normalize(10),
+                            paddingVertical: normalize(9),
                             elevation: normalize(7),
                             justifyContent: "center",
                             alignItems: "center"
@@ -96,7 +96,7 @@ const secondaryButton = (props) => {
             <TouchableWithoutFeedback onPress={onPress}>
                 <View style={[
                     {
-                        flex: 1,
+                        // flex: 1,
                         width: "100%",
                         borderRadius: normalize(20),
                         paddingVertical: normalize(7),

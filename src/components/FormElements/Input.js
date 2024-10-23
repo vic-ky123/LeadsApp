@@ -49,7 +49,7 @@ const Input = (props) => {
 
 const styles = StyleSheet.create({
     inputContainer: {
-        flex: 1,
+        // flex: 1,
         flexDirection: "column",
         width: "100%",
         marginBottom: normalize(20)

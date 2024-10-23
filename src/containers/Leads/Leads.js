@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, Pressable, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { Image, Pressable, RefreshControl, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import normalize from "react-native-normalize";
 import SearchInput from "../../components/FormElements/SearchInput";
 import leadsData from "../../components/LeadsData.json";
