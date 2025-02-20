@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1006990994214",
-    "project_id": "leadsapp-10d29",
-    "storage_bucket": "leadsapp-10d29.appspot.com"
+    "project_number": "602481579311",
+    "project_id": "leadsapp-7c759",
+    "storage_bucket": "leadsapp-7c759.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1006990994214:android:f0306b5967f3c557a2afe7",
+        "mobilesdk_app_id": "1:602481579311:android:f854ea578483ccdf82fdda",
         "android_client_info": {
           "package_name": "com.demoapp"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAkUZ2k8JsmL7A6T_27rer9-PwaHpc5V6I"
+          "current_key": "AIzaSyBY_yemcW6Va7Lak8PCqSDCP1HNVBhAiRA"
         }
       ],
       "services": {

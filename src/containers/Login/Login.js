@@ -3,8 +3,28 @@ import { Platform, StatusBar, Text, View } from "react-native";
 import normalize from "react-native-normalize";
 import { PrimaryButton, SecondaryButton } from "../../components/FormElements/ButtonCollection";
 import Input from "../../components/FormElements/Input";
+import firestore from '@react-native-firebase/firestore';
 
 const Login = () => {
+
+    // firestore().collection("Users").get().then((result) => console.log(result))
+    // firestore()
+    //     .collection('Users')
+    //     .get()
+    //     .then(querySnapshot => {
+    //         querySnapshot.forEach(documentSnapshot => {
+    //             console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+    //         });
+    //     });
+
+    firestore().collection('Users').get()
+        .then(querySnapshot => {
+            console.log("FireStore  Users", querySnapshot)
+
+            querySnapshot.forEach(documentSnapshot => {
+                console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+            });
+        }).catch((error) => console.log("Firebase Error ::", error))
 
     const initialState = {
         formData: {
